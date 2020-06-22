@@ -1,0 +1,166 @@
+# Environment config
+MPEG_TMC13_DIR: "/home/quachmau/code/MPEG/mpeg-pcc-tmc13-v10.0"
+PCERROR: "/home/quachmau/code/MPEG/mpeg-pcc-dmetric/test/pc_error_d"
+MPEG_DATASET_DIR: "/home/quachmau/data/datasets/mpeg_pcc"
+TRAIN_DATASET_PATH: "/home/quachmau/data/datasets/pcc_geo_cnn_v2/ModelNet40_200_pc512_oct3_4k/**/*.ply"
+TRAIN_RESOLUTION: 64
+# SSD highly recommended for parallel MPEG experiments
+EXPERIMENT_DIR: "/home/quachmau/datassd/experiments/pcc_geo_cnn_v2/"
+# Experiment parameters
+model_configs:
+  - id: 'c4-ws'
+    config: 'c3p'
+    lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5, 1.0e-5]
+    alpha: 0.5
+    train_mode: 'warm_seq'
+    fixed_threshold: False
+    label: 'c6'
+  - id: 'c4'
+    checkpoint_id: 'c3p-a0.5'
+    config: 'c3p'
+    lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5]
+    alpha: 0.5
+    fixed_threshold: False
+    label: 'c5'
+  - id: 'c3p-a0.75'
+    config: 'c3p'
+    lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5]
+    alpha: 0.75
+    label: 'c4'
+  - id: 'c3p-a0.5'
+    config: 'c3p'
+    lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5]
+    alpha: 0.5
+  - id: 'c3p-a0.25'
+    config: 'c3p'
+    lambdas: [3.0e-4, 1.0e-4, 5.0e-5]
+    alpha: 0.25
+  - id: 'c3p'
+    config: 'c3p'
+    lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5]
+  - id: 'c2'
+    config: 'c2'
+    lambdas: [2.0e-4, 1.0e-4, 5.0e-5, 1.0e-5, 5.0e-6]
+  - id: 'c1'
+    config: 'c1'
+    lambdas: [2.0e-4, 1.0e-4, 5.0e-5, 1.0e-5, 5.0e-6]
+opt_metrics: ['d1_mse', 'd2_mse']
+max_deltas: [.inf]
+alpha: 0.9
+gamma: 2.0
+batch_size: 32
+train_mode: 'independent'
+fixed_threshold: True
+rates: ['r01', 'r02', 'r03', 'r04', 'r05', 'r06']
+mpeg_modes:
+  - id: 'trisoup-predlift/lossy-geom-lossy-attrs'
+    label: 'G-PCC trisoup'
+  - id: 'octree-predlift/lossy-geom-lossy-attrs'
+    label: 'G-PCC octree'
+eval_modes:
+  - id: 'main'
+    no_legend: True
+    # xmin xmax ymin ymax for d1 and d2
+    lims: [[None, 1.0, 57.5, 75.5], [None, 1.0, 62, 80.5]]
+    modes:
+      - id: 'c4-ws'
+        label: 'c6'
+      - id: 'c4'
+        label: 'c5'
+      - id: 'c3p-a0.75'
+        label: 'c4'
+      - id: 'c3p'
+        label: 'c3'
+      - id: 'c2'
+      - id: 'c1'
+      - id: 'trisoup-predlift/lossy-geom-lossy-attrs'
+      - id: 'octree-predlift/lossy-geom-lossy-attrs'
+    rcParams:
+      'figure.figsize': [4.2, 5.2]
+      'legend.fontsize': 11
+      'axes.labelsize': 12
+      'xtick.labelsize': 12
+      'ytick.labelsize': 12
+  - id: 'alpha'
+    modes:
+      - id: 'c3p'
+        label: '$\alpha = 0.90$'
+      - id: 'c3p-a0.75'
+        label: '$\alpha = 0.75$'
+      - id: 'c3p-a0.5'
+        label: '$\alpha = 0.50$'
+      - id: 'c3p-a0.25'
+        label: '$\alpha = 0.25$'
+      - id: 'trisoup-predlift/lossy-geom-lossy-attrs'
+    rcParams:
+      'figure.figsize': [3.9, 3.2]
+      'legend.fontsize': 11
+      'axes.labelsize': 14
+      'xtick.labelsize': 14
+      'ytick.labelsize': 14
+pcerror_mpeg_mode: 'trisoup-predlift/lossy-geom-lossy-attrs'
+vis_comps:
+  - id: soldier_c4ws_tris_hbr
+    pc_name: soldier_vox10_0690
+    compared:
+      - id: soldier_vox10_0690_c4ws_1em04
+        type: model
+        opt_group: d1
+        lambda: 1.00e-05
+        model_id: c4-ws
+      - id: soldier_vox10_0690_tris_r05
+        type: mpeg
+        rate: r03
+        model_id: trisoup-predlift/lossy-geom-lossy-attrs
+bd_ignore: ['c4-ws/1.00e-05']
+tensorboard_plots:
+  rcParams:
+    'figure.figsize': [4.2, 3.2]
+    'legend.fontsize': 14
+    'axes.labelsize': 18
+    'xtick.labelsize': 18
+    'ytick.labelsize': 18
+  plots:
+    - id: seq_plot
+      model_id: c4-ws
+      lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5]
+      subplots:
+        - id: bpp
+          tag: 'mbpov/total'
+          label: 'bits per point'
+          lims: [0.0, 35000, None, 6.0]
+        - id: focal
+          tag: 'fl'
+          label: 'Focal loss'
+          lims: [0.0, 35000, 1.0e+04, 1.0e+05]
+    - id: ind_plot
+      model_id: c4
+      lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5]
+      subplots:
+        - id: bpp
+          tag: 'mbpov/total'
+          label: 'bits per point'
+          lims: [0.0, 35000, None, 6.0]
+        - id: focal
+          tag: 'fl'
+          label: 'Focal loss'
+          lims: [0.0, 35000, 1.0e+4, 1.0e+5]
+
+# Experiment data
+data:
+  - pc_name: loot_vox10_1200
+    cfg_name: loot_vox10_1200
+    input_pc: Static_Objects_and_Scenes/People/loot_vox10_1200/loot_vox10_1200.ply
+    input_norm: Static_Objects_and_Scenes/People/loot_vox10_1200_n/loot_vox10_1200_n.ply
+  - pc_name: redandblack_vox10_1550
+    cfg_name: redandblack_vox10_1550
+    input_pc: Static_Objects_and_Scenes/People/redandblack_vox10_1550/redandblack_vox10_1550.ply
+    input_norm: Static_Objects_and_Scenes/People/redandblack_vox10_1550_n/redandblack_vox10_1550_n.ply
+  - pc_name: longdress_vox10_1300
+    cfg_name: longdress_vox10_1300
+    input_pc: Static_Objects_and_Scenes/People/longdress_vox10_1300/longdress_vox10_1300.ply
+    input_norm: Static_Objects_and_Scenes/People/longdress_vox10_1300_n/longdress_vox10_1300_n.ply
+  - pc_name: soldier_vox10_0690
+    cfg_name: soldier_vox10_0690
+    input_pc: Static_Objects_and_Scenes/People/soldier_vox10_0690/soldier_vox10_0690.ply
+    input_norm: Static_Objects_and_Scenes/People/soldier_vox10_0690_n/soldier_vox10_0690_n.ply
