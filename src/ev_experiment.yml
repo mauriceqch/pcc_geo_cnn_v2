@@ -11,15 +11,15 @@ model_configs:
   - id: 'c4-ws'
     config: 'c3p'
     lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5, 1.0e-5]
-    alpha: 0.5
+    alpha: 0.75
     train_mode: 'warm_seq'
     fixed_threshold: False
     label: 'c6'
   - id: 'c4'
-    checkpoint_id: 'c3p-a0.5'
+    checkpoint_id: 'c3p-a0.75'
     config: 'c3p'
     lambdas: [3.0e-4, 1.0e-4, 5.0e-5, 2.0e-5]
-    alpha: 0.5
+    alpha: 0.75
     fixed_threshold: False
     label: 'c5'
   - id: 'c3p-a0.75'
