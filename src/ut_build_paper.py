@@ -42,11 +42,11 @@ def write_table_main(pc_names, opt_groups, mode_ids, ref, query_df, with_deltas=
             table += '\\multirow{2}{*}{' + row_data['name'].split('_')[0] + '}'
         table += ' & ' + row_data['opt_group'].upper() + ' & '
         str_values = []
-        row_values = row_data['values']
+        row_values = np.round(row_data['values'], decimals=2)
         # Keep ref dimension only (second)
         subcol_maxs1 = np.max(row_values, axis=0, keepdims=True)[0]
         subcol_maxs2 = [np.max(row_values[:, col][row_values[:, col] != subcol_maxs1[col]], axis=0, keepdims=True)[0]
-                     for col in range(row_values.shape[1])]
+                        for col in range(row_values.shape[1])]
         if with_deltas:
             deltas = [row_values[j] - row_values[j + 1] for j in range(len(row_values) - 1)]
             max1_delt = np.max(deltas, axis=0)
