@@ -16,7 +16,7 @@
 ## Prerequisites
 
 * Python 3.6.9
-* Tensorflow 1.15.0
+* Tensorflow 1.15.0 with CUDA 10.0.130 and cuDNN 7.4.2
 * [tensorflow-compression](https://github.com/tensorflow/compression) 1.3
 * G-PCC codec [mpeg-pcc-tmc13](https://github.com/MPEGGroup/mpeg-pcc-tmc13): necessary only to compare results with G-PCC,
 to obtain more recent versions you may need access to the MPEG Gitlab
