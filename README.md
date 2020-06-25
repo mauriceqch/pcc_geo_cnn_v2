@@ -22,12 +22,12 @@
 to obtain more recent versions you need to register on the [MPEG Gitlab](http://mpegx.int-evry.fr/software/MPEG/PCC/) and request the permissions for `MPEG/PCC`
 * MPEG metric software v0.12.3 [mpeg-pcc-dmetric](http://mpegx.int-evry.fr/software/MPEG/PCC/mpeg-pcc-dmetric):
 available on the [MPEG Gitlab](http://mpegx.int-evry.fr/software/MPEG/PCC/), you need to register and request the permissions for `MPEG/PCC`
-* MPEG PCC dataset: refer to Common Test Conditions to download the full dataset,
+* MPEG PCC dataset: refer to Common Test Conditions (CTCs) to download the full dataset,
 you can also get some point clouds from [JPEG Pleno](http://plenodb.jpeg.org/).
 * packages in `requirements.txt`
 
 *Note 1*: using a Linux distribution such as Ubuntu is highly recommended  
-*Note 2*: Common Test Conditions (CTCs) can be found at [wg11.sc29.org](http://wg11.sc29.org) in
+*Note 2*: CTCs can be found at [wg11.sc29.org](http://wg11.sc29.org) in
 All Meetings > Latest Meeting > Output documents "Common test conditions for point cloud compression".
 For example, "Common test conditions for PCC", in ISO/IEC JTC1/SC29/WG11 MPEG output document N19324 is in the Alpbach meeting 130.
 
