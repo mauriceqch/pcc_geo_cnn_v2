@@ -19,9 +19,9 @@
 * Tensorflow 1.15.0 with CUDA 10.0.130 and cuDNN 7.4.2
 * [tensorflow-compression](https://github.com/tensorflow/compression) 1.3
 * MPEG G-PCC codec [mpeg-pcc-tmc13](https://github.com/MPEGGroup/mpeg-pcc-tmc13): necessary only to compare results with G-PCC,
-to obtain more recent versions you need to register on the [MPEG Gitlab](http://mpegx.int-evry.fr/software/MPEG/PCC/) and request the necessary permissions
+to obtain more recent versions you need to register on the [MPEG Gitlab](http://mpegx.int-evry.fr/software/MPEG/PCC/) and request the permissions for `MPEG/PCC`
 * MPEG metric software v0.12.3 [mpeg-pcc-dmetric](http://mpegx.int-evry.fr/software/MPEG/PCC/mpeg-pcc-dmetric):
-available on the [MPEG Gitlab](http://mpegx.int-evry.fr/software/MPEG/PCC/), you need to register and request the necessary permissions
+available on the [MPEG Gitlab](http://mpegx.int-evry.fr/software/MPEG/PCC/), you need to register and request the permissions for `MPEG/PCC`
 * MPEG PCC dataset: refer to Common Test Conditions to download the full dataset,
 you can also get some point clouds from [JPEG Pleno](http://plenodb.jpeg.org/).
 * packages in `requirements.txt`
