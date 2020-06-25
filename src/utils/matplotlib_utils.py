@@ -26,7 +26,7 @@ def linestyles_cycle():
 
 
 def markers_cycle():
-    return itertools.cycle(('s', '+', 'o', '*', 'x', 'D', 'v', 'x', 'h'))
+    return itertools.cycle(('s', '+', 'o', '*', 'x', 'D', 'v', 'h'))
 
 
 def render_legend(labels, figsize=None, orientation='horizontal'):
