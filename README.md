@@ -28,7 +28,7 @@ you can also get some point clouds from [JPEG Pleno](http://plenodb.jpeg.org/).
 
 *Note 1*: using a Linux distribution such as Ubuntu is highly recommended  
 *Note 2*: Common Test Conditions (CTCs) can be found at [wg11.sc29.org](http://wg11.sc29.org) in
-All Meetings > Latest Meeting > Output documents "Common test conditions for point cloud compression"  
+All Meetings > Latest Meeting > Output documents "Common test conditions for point cloud compression".
 For example, "Common test conditions for PCC", in ISO/IEC JTC1/SC29/WG11 MPEG output document N19324 is in the Alpbach meeting 130.
 
 ## Getting started
