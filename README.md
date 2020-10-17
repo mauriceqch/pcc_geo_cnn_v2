@@ -15,9 +15,9 @@
 
 ## Experimental data
 
-We provide the full experimental data used for the paper. This include:
-- In `models`, all the trained models along with the tensorboard logs
-- In `results/data.csv`, you will find bitrates and objective metric values for all models, point clouds and metric (D1/D2)
+We provide the full experimental data used for the paper. This includes:
+- In `models`, all trained models
+- In `results/data.csv`, bitrates and objective metric values for all models, point clouds and metrics (D1/D2)
 - Compressed and decompressed point clouds for all models (c1 to c6, G-PCC trisoup, G-PCC octree)
 
 [Download experimental data](https://mycore.core-cloud.net/index.php/s/3ORXflrbcDAaHvG)
