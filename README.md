@@ -13,6 +13,15 @@
 * **Funding**: ANR ReVeRy national fund (REVERY ANR-17-CE23-0020)
 * **Links**: [[Paper]](https://arxiv.org/abs/2006.09043)
 
+## Experimental data
+
+We provide the full experimental data used for the paper. This include:
+- In `models`, all the trained models along with the tensorboard logs
+- In `results/data.csv`, you will find bitrates and objective metric values for all models, point clouds and metric (D1/D2)
+- Compressed and decompressed point clouds for all models (c1 to c6, G-PCC trisoup, G-PCC octree)
+
+[Download experimental data](https://mycore.core-cloud.net/index.php/s/3ORXflrbcDAaHvG)
+
 ## Prerequisites
 
 * Python 3.6.9
