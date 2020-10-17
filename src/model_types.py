@@ -151,8 +151,11 @@ def select_best_per_opt_metric(binstr, x_hat_list, level, opt_metrics, points, r
     metadata = []
     logger.info(f'Processing metrics {opt_metrics} with groups {opt_groups}')
     for group, om_group in zip(opt_groups, om_groups):
-        om_names, cur_x_hat_list, indexes = zip(*om_group)
         metric_key = f'{group}_psnr'
+        if len(om_group) == 0:
+            logger.info(f'Group {group} : {metric_key} no data')
+            continue
+        om_names, cur_x_hat_list, indexes = zip(*om_group)
 
         cur_blocks_depart = [departition_octree(x, binstr, bbox_min, bbox_max, level) for x in cur_x_hat_list]
         cur_blocks_full = [np.vstack(x) for x in cur_blocks_depart]
