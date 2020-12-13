@@ -20,7 +20,7 @@ We provide the full experimental data used for the paper. This includes:
 - In `results/data.csv`, bitrates and objective metric values for all models, point clouds and metrics (D1/D2)
 - Compressed and decompressed point clouds for all models (c1 to c6, G-PCC trisoup, G-PCC octree)
 
-[Download experimental data](https://mycore.core-cloud.net/index.php/s/3ORXflrbcDAaHvG)
+[Download experimental data](https://drive.google.com/file/d/18uHmr0ZpgFLeL9Y5TUFTsQkRfz4XpQdJ/view?usp=sharing)
 
 ## Prerequisites
 
