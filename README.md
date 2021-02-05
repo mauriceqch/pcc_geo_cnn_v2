@@ -54,6 +54,8 @@ Adapt the configurations in `ev_experiment.yml` to your particular setup:
 
 ### Datasets
 
+The dataset is available in the Git repository as `ModelNet40_200_pc512_oct3_4k.zip`. If you want to reproduce it, steps are provided below.
+
 First, download the ModelNet40 manually aligned dataset: [http://modelnet.cs.princeton.edu](http://modelnet.cs.princeton.edu).  
 Then, we generate the training dataset specified in our paper (block size 64) with the following commands:
 
