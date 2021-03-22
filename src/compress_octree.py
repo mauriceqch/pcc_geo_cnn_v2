@@ -40,8 +40,8 @@ def compress():
     validate_opt_metrics(args.opt_metrics, with_normals=with_normals)
 
     files_mult = 1
-    if with_normals:
-        files_mult *= 2
+    if len(args.opt_metrics) > 1:
+        files_mult *= len(args.opt_metrics)
         assert files_mult * len(args.input_files) == len(args.output_files)
         assert files_mult * len(args.input_normals) == len(args.output_files)
     else:
