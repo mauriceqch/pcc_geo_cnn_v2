@@ -64,7 +64,10 @@ Then, we generate the training dataset specified in our paper (block size 64) wi
     python ds_pc_octree_blocks.py ~/data/datasets/pcc_geo_cnn_v2/ModelNet40_200_pc512 ~/data/datasets/pcc_geo_cnn_v2/ModelNet40_200_pc512_oct3 --vg_size 512 --level 3 
     python ds_select_largest.py ~/data/datasets/pcc_geo_cnn_v2/ModelNet40_200_pc512_oct3 ~/data/datasets/pcc_geo_cnn_v2/ModelNet40_200_pc512_oct3_4k 4000
 
-### Run experiments
+### Parameterized experiments
+
+This section contains examples for experiments parameterized using a configuration file.
+For manual experiments, please go to the next section.
 
 Run G-PCC experiments:
 
@@ -94,6 +97,65 @@ To render the point clouds and the visual comparisons:
 To draw the training plots from tfevents data:
 
     python ut_tensorboard_plots.py ev_experiment.yml
+
+### Manual experiments
+
+This section contains usage examples for the individual scripts.
+
+Training:
+
+    python tr_train.py \
+        ~'/data/datasets/pcc_geo_cnn_v2/ModelNet40_200_pc512_oct3_4k/**/*.ply' \
+        ~/datassd/experiments/pcc_geo_cnn_v2/models/c4-ws/1.00e-04 \
+        --resolution 64 --lmbda 1.00e-04 --alpha 0.75 --gamma 2.0 --batch_size 32 --model_config c3p
+
+Experiment (compress, decompress, remap colors, compute metrics):
+
+    python ev_experiment.py \
+        --output_dir ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04 \
+        --model_dir ~/datassd/experiments/pcc_geo_cnn_v2/models/c4-ws/1.00e-04 \
+        --model_config c3p --opt_metrics d1_mse d2_mse --max_deltas inf \
+        --pc_name longdress_vox10_1300 \
+        --pcerror_path ~/code/MPEG/mpeg-pcc-dmetric/test/pc_error_d \
+        --pcerror_cfg_path ~/code/MPEG/mpeg-pcc-tmc13-v10.0/cfg/trisoup-predlift/lossy-geom-lossy-attrs/longdress_vox10_1300/r06/pcerror.cfg \
+        --input_pc ~/data/datasets/mpeg_pcc/Static_Objects_and_Scenes/People/longdress_vox10_1300/longdress_vox10_1300.ply \
+        --input_norm ~/data/datasets/mpeg_pcc/Static_Objects_and_Scenes/People/longdress_vox10_1300_n/longdress_vox10_1300_n.ply
+
+Compress/decompress (for D1 and D2 optimized point clouds):
+
+    python compress_octree.py \
+        --input_files ~/data/datasets/mpeg_pcc/Static_Objects_and_Scenes/People/longdress_vox10_1300/longdress_vox10_1300.ply \
+        --input_normals ~/data/datasets/mpeg_pcc/Static_Objects_and_Scenes/People/longdress_vox10_1300_n/longdress_vox10_1300_n.ply \
+        --output_files ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d1.ply.bin \
+            ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d2.ply.bin \
+        --checkpoint_dir ~/datassd/experiments/pcc_geo_cnn_v2/models/c4-ws/1.00e-04 \
+        --opt_metrics d1_mse d2_mse --resolution 1024 --model_config c3p --octree_level 4 \
+        --dec_files ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d1.ply.bin.ply \
+            ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d2.ply.bin.ply
+
+Compress/decompress (for D1 optimized point cloud only):
+
+    python compress_octree.py \
+        --input_files ~/data/datasets/mpeg_pcc/Static_Objects_and_Scenes/People/longdress_vox10_1300/longdress_vox10_1300.ply \
+        --output_files ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d1.ply.bin \
+        --checkpoint_dir ~/datassd/experiments/pcc_geo_cnn_v2/models/c4-ws/1.00e-04 \
+        --opt_metrics d1_mse --resolution 1024 --model_config c3p --octree_level 4 \
+        --dec_files ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d1.ply.bin.ply
+
+Transfer colors from original to decompressed point cloud for visualization:
+
+    python map_color.py \
+        ~/data/datasets/mpeg_pcc/Static_Objects_and_Scenes/People/longdress_vox10_1300/longdress_vox10_1300.ply \
+        ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d1.ply.bin.ply \
+        ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d1.ply.bin.ply.color.ply
+
+Execute mpeg-pcc-dmetric to compute distortion metrics:
+
+    ~/code/MPEG/mpeg-pcc-dmetric/test/pc_error_d \
+        -a ~/data/datasets/mpeg_pcc/Static_Objects_and_Scenes/People/longdress_vox10_1300/longdress_vox10_1300.ply \
+        -b ~/datassd/experiments/pcc_geo_cnn_v2/longdress_vox10_1300/c4-ws/1.00e-04/longdress_vox10_1300_d1.ply.bin.ply \
+        -n ~/data/datasets/mpeg_pcc/Static_Objects_and_Scenes/People/longdress_vox10_1300_n/longdress_vox10_1300_n.ply \
+        --resolution 1023 --dropdups 2 --neighborsProc 1
 
 ## Overview
 
@@ -127,7 +189,7 @@ To draw the training plots from tfevents data:
             ├── colorbar.py                         Colorbar generation
             ├── experiment.py                       Experimental utilities
             ├── focal_loss.py                       Focal loss
-            ├── matplotlib_utils.py                 Matplotlib utilies
+            ├── matplotlib_utils.py                 Matplotlib utilities
             ├── mpeg_parsing.py                     MPEG log files parsing
             ├── o3d.py                              Open3D utilities (rendering)
             ├── octree_coding.py                    Octree coding
