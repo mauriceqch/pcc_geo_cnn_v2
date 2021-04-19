@@ -13,6 +13,8 @@
 * **Funding**: ANR ReVeRy national fund (REVERY ANR-17-CE23-0020)
 * **Links**: [[Paper]](https://arxiv.org/abs/2006.09043)
 
+Please feel free to contact me at maurice.quach /at/ l2s.centralesupelec.fr for discussions or questions.
+
 ## Experimental data
 
 We provide the full experimental data used for the paper. This includes:
